@@ -16,7 +16,7 @@
             <input type="text" id="store_name" name="store_name" value="{{ old('store_name') }}" placeholder="Masukkan Nama Toko" required>
         </div>
         
-        {{-- Nama Produk (Menggunakan styling dari app.blade.php) --}}
+        {{-- Nama Produk (Menggunakan 'name', data akan dipetakan ke 'nama' di Controller) --}}
         <div>
             <label for="name">Nama Produk</label>
             <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Nama Produk" required>

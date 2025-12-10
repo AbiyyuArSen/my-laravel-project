@@ -20,13 +20,19 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        // 1. Validasi data (menggunakan 'name' dan 'store_name' dari form)
         $data = $request->validate([
+            'store_name' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
             'description' => 'nullable|string',
         ]);
 
-        Product::create($data);
+        // 2. SINKRONISASI: Mengubah 'name' (input) menjadi 'nama' (kolom DB)
+        $data['nama'] = $data['name']; 
+        unset($data['name']); // Hapus kunci 'name' yang tidak dikenali DB
+
+        Product::create($data); // Baris ini sekarang aman
 
         return redirect()->route('products.index')->with('success', 'Product created.');
     }
@@ -38,11 +44,17 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
+        // 1. Validasi data
         $data = $request->validate([
+            'store_name' => 'required|string|max:255', // Asumsi ada di form edit
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
             'description' => 'nullable|string',
         ]);
+
+        // 2. SINKRONISASI: Mengubah 'name' (input) menjadi 'nama' (kolom DB)
+        $data['nama'] = $data['name'];
+        unset($data['name']);
 
         $product->update($data);
 

@@ -15,6 +15,11 @@
         @csrf
         @method('PUT')
 
+        {{-- Tambahkan field store_name --}}
+        <label>Nama Toko</label>
+        <input type="text" name="store_name" value="{{ old('store_name', $product->store_name) }}" required placeholder="Nama Toko">
+
+        {{-- Menggunakan $product->name yang akan bekerja karena Accessor di Model --}}
         <label>Nama Produk</label>
         <input type="text" name="name" value="{{ old('name', $product->name) }}" required placeholder="Nama Produk">
 
